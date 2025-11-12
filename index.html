@@ -1,49 +1,482 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amiryo Security - הטמעת תוכן</title>
+    <title>עמית עימבר - פתרונות נדל"ן מותאמים אישית</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #1b4b8f;
+            --secondary-color: #0e2745;
+            --accent-color: #f4b942;
+            --text-color: #203040;
+            --light-bg: #f7f8fb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            font-family: 'Assistant', 'Arial', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.7;
         }
-        .header {
-            background-color: #333;
+
+        header {
+            min-height: 90vh;
+            display: grid;
+            align-items: center;
+            background: linear-gradient(rgba(18, 46, 79, 0.7), rgba(18, 46, 79, 0.7)),
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80') center/cover;
             color: #fff;
-            padding: 20px 0;
+            text-align: center;
+            padding: 6rem 1.5rem 4rem;
         }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
+
+        header h1 {
+            font-size: clamp(2.2rem, 4vw, 3.6rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
-        .iframe-container {
+
+        header p {
+            max-width: 640px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 2rem;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            box-shadow: 0 12px 24px rgba(31, 82, 142, 0.25);
+        }
+
+        .btn-outline {
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        main section {
+            padding: 4rem 1.5rem;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 3vw, 2.6rem);
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .section-title p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: #5b6876;
+        }
+
+        .about-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            align-items: center;
+        }
+
+        .about-text {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 20px 45px rgba(22, 60, 102, 0.1);
+        }
+
+        .about-text h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        .about-text ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .about-text li {
+            margin-bottom: 0.7rem;
+            padding-right: 1.5rem;
             position: relative;
-            width: 100%;
-            height: 100vh; /* גובה מלא של חלון הדפדפן */
-            overflow: hidden;
-            margin: 20px 0;
         }
-        .iframe-container iframe {
+
+        .about-text li::before {
+            content: '\2022';
+            color: var(--accent-color);
+            font-weight: bold;
             position: absolute;
-            top: 0;
-            left: 0;
+            right: 0;
+        }
+
+        .portrait {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(17, 45, 78, 0.25);
+        }
+
+        .portrait img {
+            display: block;
             width: 100%;
             height: 100%;
-            border: 0;
+            object-fit: cover;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 2rem 1.5rem;
+            border-radius: 18px;
+            box-shadow: 0 18px 35px rgba(16, 45, 78, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 22px 40px rgba(16, 45, 78, 0.12);
+        }
+
+        .service-card h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+
+        .service-card p {
+            color: #4a5664;
+        }
+
+        .listings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .listing-card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(10, 39, 68, 0.14);
+        }
+
+        .listing-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .listing-card .listing-content {
+            padding: 1.5rem;
+        }
+
+        .listing-card h4 {
+            margin: 0 0 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .listing-card span {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .testimonial {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 15px 30px rgba(15, 43, 74, 0.12);
+        }
+
+        .testimonial p {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .contact-section {
+            background: var(--secondary-color);
+            color: #fff;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2rem;
+            border-radius: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            border: none;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: 2px solid var(--accent-color);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        footer {
+            background: #0a1d32;
+            color: #b2c4d6;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .contact-details h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .contact-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0;
+        }
+
+        .contact-details li {
+            margin-bottom: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 5rem 1.25rem 3rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Amiryo Security - הטמעת תוכן</h1>
-    </div>
-    <div class="iframe-container">
-        <iframe src="https://www.amiryo-security.com" frameborder="0" allowfullscreen></iframe>
-    </div>
+    <header>
+        <div class="container">
+            <h1>עמית עימבר – הבית הבא שלך מתחיל כאן</h1>
+            <p>
+                מתווך נדל"ן מוביל המתמחה בליווי משפחות, משקיעים ויזמים בתהליכי רכישה, מכירה והשקעה בנכסים באזור המרכז.
+                עם יחס אישי, מקצועיות בלתי מתפשרת וגישה אסטרטגית – נבנה עבורך את עסקת הנדל"ן המושלמת.
+            </p>
+            <div class="cta-buttons">
+                <a class="btn btn-primary" href="#contact">לתיאום פגישה אישית</a>
+                <a class="btn btn-outline" href="tel:+972505555555">שיחה מהירה: 050-555-5555</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="about">
+            <div class="container about-grid">
+                <div class="about-text">
+                    <h3>למה לעבוד עם עמית?</h3>
+                    <p>
+                        עמית עימבר מביא ניסיון רב שנים בתחום הנדל"ן, היכרות מעמיקה עם השוק המקומי ורשת קשרים ענפה שמאפשרת חשיפה
+                        להזדמנויות הנכונות בזמן הנכון.
+                    </p>
+                    <ul>
+                        <li>אסטרטגיית מכירה חכמה המותאמת לכל נכס ומוכר</li>
+                        <li>ליווי משפטי ופיננסי מלא עד לחתימה על העסקה</li>
+                        <li>שיווק דיגיטלי ברמה הגבוהה ביותר, כולל צילום מקצועי וסיורים וירטואליים</li>
+                        <li>יחס אישי, שקיפות מלאה וזמינות מסביב לשעון</li>
+                    </ul>
+                </div>
+                <div class="portrait">
+                    <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80" alt="עמית עימבר">
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>שירותים מקצה לקצה</h2>
+                    <p>מערך שירותים מלא שמבטיח תהליך נדל"ני בטוח, יעיל ורווחי – החל מהערכת שווי ועד לאכלוס.</p>
+                </div>
+                <div class="services">
+                    <article class="service-card">
+                        <h3>שיווק ומכירת נכסים</h3>
+                        <p>הצגת הנכס לקהלים הנכונים, ניהול משא ומתן אפקטיבי וטיפול בכל היבטי המכירה עד הסגירה.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>איתור נכסים להשקעה</h3>
+                        <p>ניתוח שוק מדויק, הערכת תשואה והובלת העסקה כך שתהיה בטוחה ומשתלמת לאורך זמן.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>ליווי רוכשים</h3>
+                        <p>מהגדרת הצרכים, דרך סיורים מושכלים ועד בדיקות עומק – עמית מוודא שתרכשו את הבית הנכון.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>ייעוץ ליזמות והתחדשות עירונית</h3>
+                        <p>חיבור ליזמים מובילים, בדיקת היתכנות מקצועית וניהול התהליך מול כל הגורמים הרלוונטיים.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="listings">
+            <div class="container">
+                <div class="section-title">
+                    <h2>נכסים נבחרים</h2>
+                    <p>הצצה להזדמנויות עדכניות בשוק – צרו קשר לקבלת קטלוג מלא ומידע נוסף.</p>
+                </div>
+                <div class="listings">
+                    <article class="listing-card">
+                        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80" alt="דירת יוקרה במרכז תל אביב">
+                        <div class="listing-content">
+                            <h4>דירת יוקרה במרכז תל אביב</h4>
+                            <p>4 חדרים משופצת, נוף פתוח, מעלית וחניה פרטית.</p>
+                            <span>₪3,850,000</span>
+                        </div>
+                    </article>
+                    <article class="listing-card">
+                        <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=900&q=80" alt="פנטהאוז יוקרתי בגבעתיים">
+                        <div class="listing-content">
+                            <h4>פנטהאוז יוקרתי בגבעתיים</h4>
+                            <p>מרפסת ענקית 60 מ"ר, תקרות גבוהות ועיצוב אדריכלי.</p>
+                            <span>₪5,200,000</span>
+                        </div>
+                    </article>
+                    <article class="listing-card">
+                        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=80" alt="בניין להשקעה ברמת גן">
+                        <div class="listing-content">
+                            <h4>בניין להשקעה ברמת גן</h4>
+                            <p>12 יחידות דיור מאוכלסות, פוטנציאל השבחה והרחבה משמעותי.</p>
+                            <span>₪12,500,000</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>לקוחות מספרים</h2>
+                    <p>ההצלחה של עמית עימבר נמדדת בקשרים ארוכי טווח ובלקוחות שחוזרים שוב ושוב.</p>
+                </div>
+                <div class="testimonials">
+                    <article class="testimonial">
+                        <p>"עמית ליווה אותנו במכירת הדירה ומצא לנו קונים רציניים תוך שבוע. ניהול משא ומתן מקצועי ותוצאה מעל הציפיות!"</p>
+                        <strong>משפחת כהן, רמת השרון</strong>
+                    </article>
+                    <article class="testimonial">
+                        <p>"כהשקעה ראשונה חיפשנו יד מכוונת – עמית בנה עבורנו תכנית מדויקת שהבטיחה תשואה גבוהה ובטוחה."</p>
+                        <strong>רותם וליאור, תל אביב</strong>
+                    </article>
+                    <article class="testimonial">
+                        <p>"הידע שלו בהתחדשות עירונית חסך לנו זמן וכסף, והביא לשיתוף פעולה עם היזם המוביל באזור."</p>
+                        <strong>חן, נציג ועד בית</strong>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container contact-grid">
+                <div class="contact-details">
+                    <h3>בואו נדבר נדל"ן</h3>
+                    <p>השאירו פרטים או צרו קשר ישיר – עמית ישמח לפגוש אתכם ולהוביל אתכם לעסקה הבאה.</p>
+                    <ul>
+                        <li>טלפון: <a href="tel:+972505555555" style="color: #fff; text-decoration: underline;">050-555-5555</a></li>
+                        <li>דוא"ל: <a href="mailto:amit@imber-realestate.co.il" style="color: #fff; text-decoration: underline;">amit@imber-realestate.co.il</a></li>
+                        <li>כתובת משרד: דרך השלום 12, תל אביב</li>
+                        <li>שעות פעילות: א'-ה' 09:00-19:00, ו' 09:00-13:00</li>
+                    </ul>
+                </div>
+                <form action="https://formsubmit.co/amit@imber-realestate.co.il" method="POST">
+                    <input type="hidden" name="_subject" value="פניה חדשה מאתר עמית עימבר">
+                    <label for="name">שם מלא</label>
+                    <input type="text" id="name" name="name" placeholder="שם פרטי ומשפחה" required>
+
+                    <label for="phone">טלפון</label>
+                    <input type="tel" id="phone" name="phone" placeholder="050-0000000" required>
+
+                    <label for="email">דוא"ל</label>
+                    <input type="email" id="email" name="email" placeholder="name@example.com">
+
+                    <label for="message">איך נוכל לעזור?</label>
+                    <textarea id="message" name="message" placeholder="ספרו על הצורך הנדל"ני שלכם"></textarea>
+
+                    <button class="btn btn-primary" type="submit">שליחת פניה</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© כל הזכויות שמורות לעמית עימבר – פתרונות נדל"ן מותאמים אישית.</p>
+        </div>
+    </footer>
 </body>
 </html>
