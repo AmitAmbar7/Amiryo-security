@@ -1,49 +1,111 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amiryo Security - הטמעת תוכן</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .iframe-container {
-            position: relative;
-            width: 100%;
-            height: 100vh; /* גובה מלא של חלון הדפדפן */
-            overflow: hidden;
-            margin: 20px 0;
-        }
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STOCKBOT | Live Trading Interface</title>
+  <style>
+    :root {
+      --bg: #050b18;
+      --panel: rgba(16, 27, 52, 0.72);
+      --line: rgba(146, 190, 255, 0.24);
+      --text: #eaf2ff;
+      --muted: #a7badf;
+      --cyan: #1fd4ff;
+      --violet: #8b5cf6;
+      --green: #2ceb9b;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(31, 212, 255, .26), transparent 58%),
+        radial-gradient(700px 380px at 95% 10%, rgba(139, 92, 246, .2), transparent 52%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .shell { max-width: 1380px; margin: 0 auto; padding: 14px; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      backdrop-filter: blur(8px);
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .logo {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(140deg, var(--cyan), var(--violet));
+      box-shadow: 0 0 20px rgba(31, 212, 255, .4);
+    }
+    h1 { margin: 0; font-size: clamp(1rem, 2vw, 1.35rem); }
+    .subtitle { margin: 2px 0 0; color: var(--muted); font-size: .88rem; }
+
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip, .btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: .8rem;
+      color: var(--text);
+      background: var(--panel);
+      text-decoration: none;
+    }
+    .chip.live { border-color: rgba(44, 235, 155, .55); color: #bfffe0; }
+    .chip.live::before {
+      content: "";
+      width: 7px; height: 7px; margin-left: 7px; display: inline-block;
+      border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green);
+      vertical-align: middle;
+    }
+
+    .frame {
+      height: calc(100vh - 92px);
+      min-height: 560px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(8, 16, 34, .65);
+      box-shadow: 0 14px 34px rgba(0,0,0,.45);
+    }
+    iframe { width: 100%; height: 100%; border: 0; }
+
+    @media (max-width: 780px) {
+      .shell { padding: 10px; }
+      .frame { height: calc(100vh - 122px); min-height: 500px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Amiryo Security - הטמעת תוכן</h1>
-    </div>
-    <div class="iframe-container">
-        <iframe src="https://www.amiryo-security.com" frameborder="0" allowfullscreen></iframe>
-    </div>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>STOCKBOT • Trading Dashboard Shell</h1>
+          <p class="subtitle">מעטפת ויזואלית משודרגת לקוד החי מה־GitHub שלך.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="chip live">Live</span>
+        <a class="btn" href="https://github.com/Amitos11/STOCKBOT" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+      </div>
+    </header>
+
+    <section class="frame" aria-label="STOCKBOT embedded app">
+      <iframe src="https://amitos11.github.io/STOCKBOT/" allowfullscreen title="STOCKBOT Live"></iframe>
+    </section>
+  </main>
 </body>
 </html>
